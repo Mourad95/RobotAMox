@@ -2,8 +2,10 @@
 #include <TimerOne.h>
 
 //variables pour les interrupeurs moteurs
-const byte PinMoteur1 = 2; //interrupteur du moteur1 correspondant à la PIN 2 --> PIN-0 arduiono
-const byte PinMoteur2 = 3; //interrupteur du moteur1 correspondant à la PIN 2 --> PIN-1 arduino
+#define CNTL   2  //interrupteur du moteur1 correspondant à la PIN 2 --> PIN-1 arduino
+#define PWMA   6 
+#define AIN1   A0
+//interrupteur du moteur1 correspondant à la PIN 2 --> PIN-0 arduiono
 
 //variables pour le compteur d'implusion
 unsigned int compteur1 = 0;
@@ -44,17 +46,24 @@ void ISR_timerone()
 }
 
 void setup()
-{
-  Serial.begin(9600);
+{  Serial.begin(9600);
+  pinMode(PWMA,OUTPUT);
+  pinMode(AIN1,OUTPUT); 
+  pinMode(CNTL,OUTPUT);
+  analogWrite(PWMA,150);
+  digitalWrite(AIN1,HIGH);
+  
   Timer1.initialize(1000000);//reglage du timer à 1sec
-  attachInterrupt(PinMoteur1, ISR_compteur1, RISING); //augmente le compteur1 lorsque le detecteur s'active
-  attachInterrupt(PinMoteur2, ISR_compteur2, RISING); //augmente le compteur2 lorsque le detecteur s'active
+  attachInterrupt(PWMA, ISR_compteur1, RISING); //augmente le compteur1 lorsque le detecteur s'active
+ // attachInterrupt(PinMoteur2, ISR_compteur2, RISING); //augmente le compteur2 lorsque le detecteur s'active
   Timer1.attachInterrupt(ISR_timerone); //active le timer
   Serial.print("tr/min: ");
+  
 }
 void loop()
 {
-  //aps necessaire
+   
+ 
   
 }
 

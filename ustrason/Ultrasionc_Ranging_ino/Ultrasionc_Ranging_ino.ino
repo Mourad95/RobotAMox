@@ -1,18 +1,9 @@
-/* WaveShare ARPICAR Run Forward/Backward/Left/Right Test
-   
-   ARPICAR run forward,backward,left right and so on..
-   
-   Created 25th June 2016
-           by Xinwu Lin
-           
-   CN: http://www.waveshare.net/
-   EN: http://www.waveshare.com/
-*/
 
-#define ECHO   2
-#define TRIG   3
+const int ECHO = 12;  //definition de la pin echo de l'ultrason
+const int TRIG = 11;     //definition de la pin trig de l'ultrason
 
 int Distance = 0;
+int val = 0; 
 
 int Distance_test()         // Measure the distance 
 {

@@ -1,15 +1,15 @@
 
 //definition des pins moteur gauche
-#define PWMA   6           //Left Motor Speed pin (ENA)
-#define AIN2   A0          //Motor-L forward (IN2).
-#define AIN1   A1          //Motor-L backward (IN1)
+const int PWMA = 6;          //Left Motor Speed pin (ENA)
+const char AIN2 = A0;         //Motor-L forward (IN2).
+const char AIN1 = A1;          //Motor-L backward (IN1)
 //definition des pins moteur droit
-#define PWMB   5           //Right Motor Speed pin (ENB)
-#define BIN1   A2          //Motor-R forward (IN3)
-#define BIN2   A3          //Motor-R backward (IN4)
+const int PWMB = 5;           //Right Motor Speed pin (ENB)
+const char BIN1 = A2;          //Motor-R forward (IN3)
+const char BIN2 = A3;          //Motor-R backward (IN4)
 
-#define ECHO   2
-#define TRIG   3 //declencheur
+const int ECHO = 2;
+const int TRIG = 3; //declencheur
 
 int Distance = 0;
 int Speed = 50;
@@ -101,11 +101,11 @@ void loop()
   Serial.print("Distance = ");            //print distance
   Serial.print(Distance);       
   Serial.println("cm");  
-  if(Distance < 25)      //Ultrasonic range ranging 2cm to 400cm
+  if(Distance < 15)      //Ultrasonic range ranging 2cm to 400cm
   {
     right();
     //left();
-    delay(500);
+    delay(100);
     stop();     
   }
   else

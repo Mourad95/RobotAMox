@@ -1,23 +1,12 @@
-/* 
- Programme de test pour servomoteur de positionnement angulaire 
- Traduction en français, ajout de variables
- Code original de BARRAGAN <http://barraganstudio.com>
- et Scott Fitzgerald http://www.arduino.cc/en/Tutorial/Sweep
- 
- www.projetsdiy.fr - 19/02/2016
- public domain
-*/
- 
+
 #include <Servo.h>
  
 Servo myservo;  // création de l'objet myservo 
  
 const int S1 = 9;    // Pin sur lequel est branché le servo
 int pos = 0;             // variable permettant de conserver la position du servo
-int angle_initial = 0;   //angle initial
-int angle_final = 179;   //angle final
-int increment = 1;       //incrément entre chaque position
-bool angle_actuel = false;//Envoi sur le port série la position courante du servomoteur
+
+bool angle_actuel = true;//Envoi sur le port série la position courante du servomoteur
  
 void setup() {
   pinMode(S1,OUTPUT);
@@ -29,28 +18,37 @@ void setup() {
  
 void loop() {
   
-  for (pos = angle_initial; pos <= angle_final; pos += increment) { // Déplace le servo de 0 à 180 degréespar pas de 1 degrée 
+  for (pos = 0; pos <= 179; pos = pos + 1) { // Déplace le servo de 0 à 180 degréespar pas de 1 degrée 
     myservo.write(pos);              // Demande au servo de se déplacer à cette position angulaire
     delay(10);                       // Attend 30ms entre chaque changement de position
-    if (angle_actuel) {
+    
+  }
+  if (angle_actuel) {
         Serial.println(myservo.read());
     }
-  }
-  for (pos = angle_final; pos >= angle_initial; pos -= increment) { // Fait le chemin inverse
+  for (pos = 179; pos >= 0; pos = pos - 1) { // Fait le chemin inverse
     myservo.write(pos);              
     delay(10);   
-    if (angle_actuel) {
+    
+  }
+   if (angle_actuel) {
         Serial.println(myservo.read());
     }
     
-  }
-  for (pos = 90; pos >= angle_initial; pos -= increment) { // Fait le chemin inverse
+     for (pos = 0; pos <= 90; pos = pos + 1) { // Fait le chemin inverse
     myservo.write(pos);              
-      delay(10);
-    if (angle_actuel) {
-        Serial.println(angle_actuel);
-    }
-    
+    delay(10);   
   }
+  
+  delay(3000);
+  
+   if (angle_actuel) {
+        Serial.println(myservo.read());
+    } 
+         for (pos = 90; pos >= 0; pos = pos - 1) { // Fait le chemin inverse
+    myservo.write(pos);              
+    delay(10);   
+  }
+    
   
 }
